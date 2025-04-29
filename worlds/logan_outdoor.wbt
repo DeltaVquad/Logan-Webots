@@ -1,0 +1,40 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Pavement.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Grass.proto"
+EXTERNPROTO "../protos/Logan.proto"
+
+WorldInfo {
+  info [
+    "Drone quadrirotor Logan."
+    "Essa simulacao permite utilizar o drone Logan, quadricoptero desenvolvido pela equipe DeltaV da POLI-UPE."
+  ]
+  title "Logan Quadricoptero"
+}
+Viewpoint {
+  orientation -0.31635893576699886 0.319540096764402 0.8932027487195552 1.673560319967503
+  position -0.0246072996947732 -6.314432397658256 5.192917412216091
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  translation 0 0 0.001
+  name "flightFloor"
+  size 2.3 2.3
+  appearance Pavement {
+    type "black stone"
+  }
+}
+Floor {
+  name "roomFloor"
+  size 20 20
+  appearance Grass {
+  }
+}
+Logan {
+}
