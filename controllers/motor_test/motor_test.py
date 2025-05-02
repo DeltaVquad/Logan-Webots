@@ -15,15 +15,14 @@ timestep = int(robot.getBasicTimeStep())
 #  motor = robot.getDevice('motorname')
 #  ds = robot.getDevice('dsname')
 #  ds.enable(timestep)
-def init_motors(motors_name):
-    motors = []
-    for m in motors_name:
-        motors.append(robot.getDevice(m))
-        motors[-1].setPosition(float('inf'))
-        motors[-1].setVelocity(1.)
-    return motors
+def init_motor(motor_name):
+    motor = robot.getDevice(motor_name)
+    motor.setPosition(float('inf'))
+    motor.setVelocity(1.)
+    return motor
 
-motors = init_motors(['motor1', 'motor2', 'motor3', 'motor4'])
+motors = [init_motor(m)
+          for m in ['motor1', 'motor2', 'motor3', 'motor4']]
 fix_vel = 100
 
 # Main loop:
@@ -37,8 +36,8 @@ while robot.step(timestep) != -1:
 
     # Enter here functions to send actuator commands, like:
     #  motor.setPosition(10.0)
-    motors[0].setVelocity(fix_vel)
-    motors[1].setVelocity(-fix_vel)
+    motors[0].setVelocity(-fix_vel)
+    motors[1].setVelocity(fix_vel)
     motors[2].setVelocity(fix_vel)
     motors[3].setVelocity(-fix_vel)
 

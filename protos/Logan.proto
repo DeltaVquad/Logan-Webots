@@ -26,6 +26,8 @@ PROTO Logan [
       }
       Gyro {
       }
+      Accelerometer {
+      }
       Solid {
         children [
           Transform {
@@ -121,14 +123,14 @@ PROTO Logan [
         ]
         name "arm4"
       }
-      DEF M1 Propeller {
+      DEF M4 Propeller {
         shaftAxis 0 0 1
         centerOfThrust -0.171 -0.171 0.061
-        thrustConstants 0.0009544 0
+        thrustConstants -0.0009544 0
         torqueConstants 0.000909 0
         fastHelixThreshold 50
         device RotationalMotor {
-          name "motor1"
+          name "motor4"
           maxVelocity 600
           maxTorque 30
         }
@@ -190,7 +192,7 @@ PROTO Logan [
       DEF M2 Propeller {
         shaftAxis 0 0 1
         centerOfThrust 0.171 -0.171 0.061
-        thrustConstants -0.0009544 0
+        thrustConstants 0.0009544 0
         torqueConstants 0.000909 0
         fastHelixThreshold 50
         device RotationalMotor {
@@ -213,14 +215,14 @@ PROTO Logan [
           boundingObject USE HELIX_BOUNDING
         }
       }
-      DEF M3 Propeller {
+      DEF M1 Propeller {
         shaftAxis 0 0 1
         centerOfThrust 0.171 0.171 0.061
-        thrustConstants 0.0009544 0
+        thrustConstants -0.0009544 0
         torqueConstants 0.000909 0
         fastHelixThreshold 50
         device RotationalMotor {
-          name "motor3"
+          name "motor1"
           maxVelocity 600
           maxTorque 30
         }
@@ -239,14 +241,14 @@ PROTO Logan [
           boundingObject USE HELIX_BOUNDING
         }
       }
-      DEF M4 Propeller {
+      DEF M3 Propeller {
         shaftAxis 0 0 1
         centerOfThrust -0.171 0.171 0.061
-        thrustConstants -0.0009544 0
+        thrustConstants 0.0009544 0
         torqueConstants 0.000909 0
         fastHelixThreshold 50
         device RotationalMotor {
-          name "motor4"
+          name "motor3"
           maxVelocity 600
           maxTorque 30
         }
@@ -329,6 +331,9 @@ PROTO Logan [
     physics Physics {
       density -1
       mass 1.8
+      centerOfMass [
+        0 0 0
+      ]
     }
     controller IS controller
     controllerArgs IS controllerArgs

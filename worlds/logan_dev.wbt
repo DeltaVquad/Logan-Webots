@@ -1,0 +1,367 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Pavement.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Grass.proto"
+
+WorldInfo {
+  info [
+    "Drone quadrirotor Logan."
+    "Essa simulacao permite utilizar o drone Logan, quadricoptero desenvolvido pela equipe DeltaV da POLI-UPE."
+  ]
+  title "Logan Quadricoptero"
+  basicTimeStep 2
+  FPS 20
+}
+Viewpoint {
+  orientation -0.06134741610601014 0.9838992091466812 0.16786554374752252 0.711331077095328
+  position -0.893622512219648 -0.21593492473019693 1.0702185295596367
+  followType "Mounted Shot"
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  translation 0 0 0.001
+  name "flightFloor"
+  size 2.3 2.3
+  appearance Pavement {
+    type "black stone"
+  }
+}
+Floor {
+  name "roomFloor"
+  size 20 20
+  appearance Grass {
+  }
+}
+Robot {
+  translation 0 0 0.166
+  rotation 0 0 1 1.5708
+  children [
+    Altimeter {
+    }
+    Compass {
+    }
+    InertialUnit {
+      name "imu"
+    }
+    GPS {
+    }
+    Gyro {
+    }
+    Accelerometer {
+    }
+    Solid {
+      children [
+        Transform {
+          translation 0 0 -0.07
+          scale 0.001 0.001 0.001
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.1 0.1 0.1
+                roughness 0.1
+                metalness 0.01
+              }
+              geometry Mesh {
+                url [
+                  "/home/angel/desarrollo/DeltaV/logan-webots/protos/logan/center.stl"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+      name "center"
+    }
+    Solid {
+      translation -0.1321 0 0
+      children [
+        DEF ARM_SHAPE Transform {
+          translation 0.1322 0.0001 -0.165
+          rotation 0 0 1 -0.785395
+          scale 0.001 0.001 0.001
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.1 0.1 0.1
+                roughness 0.1
+                metalness 0.01
+              }
+              geometry Mesh {
+                url [
+                  "/home/angel/desarrollo/DeltaV/logan-webots/protos/logan/arm.stl"
+                ]
+              }
+            }
+          ]
+        }
+        DEF MOTOR_SHAPE Transform {
+          translation -0.0397927 0.171417 -0.0007
+          rotation 0 0 1 -0.785395
+          scale 0.001 0.001 0.001
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.5 0.5 0.5
+                roughness 0.5
+                metalness 0.5
+              }
+              geometry Mesh {
+                url [
+                  "/home/angel/desarrollo/DeltaV/logan-webots/protos/logan/motor_base.stl"
+                ]
+              }
+            }
+          ]
+          translationStep 0.0001
+        }
+      ]
+      name "arm1"
+    }
+    Solid {
+      translation 0 -0.1321 0
+      rotation 0 0 -1 -1.5707953071795862
+      children [
+        USE ARM_SHAPE
+        USE MOTOR_SHAPE
+      ]
+      name "arm2"
+    }
+    Solid {
+      translation 0.1321 0 0
+      rotation 0 0 1 3.14159
+      children [
+        USE ARM_SHAPE
+        USE MOTOR_SHAPE
+      ]
+      name "arm3"
+    }
+    Solid {
+      translation 0 0.1321 0
+      rotation 0 0 1 -1.5707953071795862
+      children [
+        USE ARM_SHAPE
+        USE MOTOR_SHAPE
+      ]
+      name "arm4"
+    }
+    DEF M4 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.171 -0.171 0.061
+      thrustConstants -0.0009544 0
+      torqueConstants 0.000909 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "motor4"
+        maxVelocity 600
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation -0.171 -0.171 0.061
+        children [
+          DEF FASTHELIX Shape {
+            appearance PBRAppearance {
+              baseColor 0.1 0.1 0.1
+              baseColorMap ImageTexture {
+                url [
+                  "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/protos/textures/fast_helix.png"
+                ]
+              }
+              metalness 0
+            }
+            geometry DEF HELIX_CYLINDER Cylinder {
+              height 0.01
+              radius 0.1275
+            }
+          }
+        ]
+        boundingObject USE HELIX_CYLINDER
+      }
+      slowHelix Solid {
+        translation -0.1714 -0.171 0.061
+        children [
+          DEF PROPELLER Transform {
+            translation 0.026 -0.042 0.134
+            scale 0.001 0.001 0.001
+            children [
+              Shape {
+                appearance DEF PLASTIC PBRAppearance {
+                  baseColor 0 0 0
+                  metalness 0.3
+                }
+                geometry Mesh {
+                  url [
+                    "/home/angel/desarrollo/DeltaV/logan-webots/protos/logan/propeller.stl"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+        boundingObject DEF HELIX_BOUNDING Group {
+          children [
+            Cylinder {
+              height 0.02
+              radius 0.01
+            }
+            Box {
+              size 0.25 0.03 0.01
+            }
+          ]
+        }
+        translationStep 0.0001
+      }
+    }
+    DEF M2 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.171 -0.171 0.061
+      thrustConstants 0.0009544 0
+      torqueConstants 0.000909 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "motor2"
+        maxVelocity 600
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation 0.171 -0.171 0.061
+        children [
+          USE FASTHELIX
+        ]
+        boundingObject USE HELIX_CYLINDER
+      }
+      slowHelix Solid {
+        translation 0.171 -0.171 0.061
+        children [
+          USE PROPELLER
+        ]
+        boundingObject USE HELIX_BOUNDING
+      }
+    }
+    DEF M1 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.171 0.171 0.061
+      thrustConstants -0.0009544 0
+      torqueConstants 0.000909 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "motor1"
+        maxVelocity 600
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation 0.171 0.171 0.061
+        children [
+          USE FASTHELIX
+        ]
+        boundingObject USE HELIX_CYLINDER
+      }
+      slowHelix Solid {
+        translation 0.171 0.171 0.061
+        children [
+          USE PROPELLER
+        ]
+        boundingObject USE HELIX_BOUNDING
+      }
+    }
+    DEF M3 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.171 0.171 0.061
+      thrustConstants 0.0009544 0
+      torqueConstants 0.000909 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "motor3"
+        maxVelocity 600
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation -0.171 0.171 0.061
+        children [
+          USE FASTHELIX
+        ]
+        boundingObject USE HELIX_CYLINDER
+      }
+      slowHelix Solid {
+        translation -0.171 0.171 0.061
+        children [
+          USE PROPELLER
+        ]
+        boundingObject USE HELIX_BOUNDING
+      }
+    }
+  ]
+  name "Logan"
+  boundingObject Group {
+    children [
+      Pose {
+        rotation 0 0 1 -0.785402
+        children [
+          Box {
+            size 0.1 0.1 0.04
+          }
+        ]
+      }
+      Pose {
+        rotation 0 0 1 -0.785402
+        children [
+          DEF ARM_BOX Box {
+            size 0.52 0.04 0.02
+          }
+        ]
+      }
+      Pose {
+        rotation 0 0 1 0.785402
+        children [
+          USE ARM_BOX
+        ]
+      }
+      Pose {
+        translation 0.0657606 0.0661213 -0.0875
+        rotation 0 0 1 -0.785402
+        children [
+          DEF SUPPORT_BOX Box {
+            size 0.04 0.09 0.155
+          }
+        ]
+        translationStep 0.001
+      }
+      Pose {
+        translation -0.0692965 -0.0643008 -0.0875
+        rotation 0 0 1 -0.785402
+        children [
+          USE SUPPORT_BOX
+        ]
+        translationStep 0.001
+      }
+      Pose {
+        translation -0.0643021 0.0692965 -0.0875
+        rotation 0 0 1 0.785402
+        children [
+          USE SUPPORT_BOX
+        ]
+        translationStep 0.001
+      }
+      Pose {
+        translation 0.0707104 -0.0648575 -0.0875
+        rotation 0 0 1 0.785402
+        children [
+          USE SUPPORT_BOX
+        ]
+      }
+    ]
+  }
+  physics Physics {
+    density -1
+    mass 1.8
+    centerOfMass [
+      0 0 0
+    ]
+  }
+  controller "motor_test"
+}

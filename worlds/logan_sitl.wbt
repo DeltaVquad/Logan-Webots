@@ -13,10 +13,12 @@ WorldInfo {
     "Essa simulacao permite utilizar o drone Logan, quadricoptero desenvolvido pela equipe DeltaV da POLI-UPE."
   ]
   title "Logan Quadricoptero"
+  basicTimeStep 2
+  FPS 20
 }
 Viewpoint {
-  orientation 0.00959474436283309 0.9985714632544239 -0.05256399580065128 0.36130413038836273
-  position -2.043595422887263 -0.0176520284280184 0.8702935924625368
+  orientation -0.025297435870817488 0.9959534546760087 0.08623662712145762 0.5729937694439438
+  position -2.69249263142203 0.03895239238305073 1.9966287803146134
   follow "Logan"
   followType "Mounted Shot"
 }
@@ -34,9 +36,21 @@ Floor {
 }
 Floor {
   name "roomFloor"
-  size 200 200
+  size 20 20
   appearance Grass {
   }
 }
 Logan {
+  rotation 0 0 -1 -5.307179586466759e-06
+  controller "ardupilot_vehicle_controller"
+  controllerArgs [
+    "--motors"
+    "motor1, motor2, motor3, motor4"
+    "--imu"
+    "imu"
+    "--reversed-motors"
+    "1,4"
+    "--motor-cap"
+    "315"
+  ]
 }
