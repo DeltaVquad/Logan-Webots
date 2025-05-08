@@ -17,7 +17,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation -0.06134741610601014 0.9838992091466812 0.16786554374752252 0.711331077095328
-  position -0.893622512219648 -0.21593492473019693 1.0702185295596367
+  position -1.2149294899037233 -0.25616243667680144 1.3434071626937416
   followType "Mounted Shot"
 }
 TexturedBackground {
@@ -40,21 +40,7 @@ Floor {
 }
 Robot {
   translation 0 0 0.166
-  rotation 0 0 1 1.5708
   children [
-    Altimeter {
-    }
-    Compass {
-    }
-    InertialUnit {
-      name "imu"
-    }
-    GPS {
-    }
-    Gyro {
-    }
-    Accelerometer {
-    }
     Solid {
       children [
         Transform {
@@ -217,9 +203,61 @@ Robot {
         translationStep 0.0001
       }
     }
-    DEF M2 Propeller {
+    DEF M1 Propeller {
       shaftAxis 0 0 1
       centerOfThrust 0.171 -0.171 0.061
+      thrustConstants 0.0009544 0
+      torqueConstants 0.000909 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "motor1"
+        maxVelocity 600
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation 0.171 -0.171 0.061
+        children [
+          USE FASTHELIX
+        ]
+        boundingObject USE HELIX_CYLINDER
+      }
+      slowHelix Solid {
+        translation 0.171 -0.171 0.061
+        children [
+          USE PROPELLER
+        ]
+        boundingObject USE HELIX_BOUNDING
+      }
+    }
+    DEF M3 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.171 0.171 0.061
+      thrustConstants -0.0009544 0
+      torqueConstants 0.000909 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "motor3"
+        maxVelocity 600
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation 0.171 0.171 0.061
+        children [
+          USE FASTHELIX
+        ]
+        boundingObject USE HELIX_CYLINDER
+      }
+      slowHelix Solid {
+        translation 0.171 0.171 0.061
+        children [
+          USE PROPELLER
+        ]
+        boundingObject USE HELIX_BOUNDING
+      }
+    }
+    DEF M2 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.171 0.171 0.061
       thrustConstants 0.0009544 0
       torqueConstants 0.000909 0
       fastHelixThreshold 50
@@ -229,58 +267,6 @@ Robot {
         maxTorque 30
       }
       fastHelix Solid {
-        translation 0.171 -0.171 0.061
-        children [
-          USE FASTHELIX
-        ]
-        boundingObject USE HELIX_CYLINDER
-      }
-      slowHelix Solid {
-        translation 0.171 -0.171 0.061
-        children [
-          USE PROPELLER
-        ]
-        boundingObject USE HELIX_BOUNDING
-      }
-    }
-    DEF M1 Propeller {
-      shaftAxis 0 0 1
-      centerOfThrust 0.171 0.171 0.061
-      thrustConstants -0.0009544 0
-      torqueConstants 0.000909 0
-      fastHelixThreshold 50
-      device RotationalMotor {
-        name "motor1"
-        maxVelocity 600
-        maxTorque 30
-      }
-      fastHelix Solid {
-        translation 0.171 0.171 0.061
-        children [
-          USE FASTHELIX
-        ]
-        boundingObject USE HELIX_CYLINDER
-      }
-      slowHelix Solid {
-        translation 0.171 0.171 0.061
-        children [
-          USE PROPELLER
-        ]
-        boundingObject USE HELIX_BOUNDING
-      }
-    }
-    DEF M3 Propeller {
-      shaftAxis 0 0 1
-      centerOfThrust -0.171 0.171 0.061
-      thrustConstants 0.0009544 0
-      torqueConstants 0.000909 0
-      fastHelixThreshold 50
-      device RotationalMotor {
-        name "motor3"
-        maxVelocity 600
-        maxTorque 30
-      }
-      fastHelix Solid {
         translation -0.171 0.171 0.061
         children [
           USE FASTHELIX
@@ -294,6 +280,14 @@ Robot {
         ]
         boundingObject USE HELIX_BOUNDING
       }
+    }
+    Accelerometer {
+    }
+    GPS {
+    }
+    Gyro {
+    }
+    InertialUnit {
     }
   ]
   name "Logan"

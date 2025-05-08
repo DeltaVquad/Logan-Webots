@@ -5,7 +5,7 @@
 
 PROTO Logan [
   field SFVec3f translation 0 0 0.166
-  field SFRotation rotation 0 0 1 1.5708
+  field SFRotation rotation 0 0 1 0
   field SFString name "Logan"
   field SFString controller "motor_test"
   field MFString controllerArgs  []
@@ -15,19 +15,6 @@ PROTO Logan [
     translation IS translation
     rotation IS rotation
     children [
-      Altimeter {
-      }
-      Compass {
-      }
-      InertialUnit {
-        name "imu"
-      }
-      GPS {
-      }
-      Gyro {
-      }
-      Accelerometer {
-      }
       Solid {
         children [
           Transform {
@@ -124,148 +111,157 @@ PROTO Logan [
         name "arm4"
       }
       DEF M4 Propeller {
-        shaftAxis 0 0 1
-        centerOfThrust -0.171 -0.171 0.061
-        thrustConstants -0.0009544 0
-        torqueConstants 0.000909 0
-        fastHelixThreshold 50
-        device RotationalMotor {
-          name "motor4"
-          maxVelocity 600
-          maxTorque 30
-        }
-        fastHelix Solid {
-          translation -0.171 -0.171 0.061
-          children [
-            DEF FASTHELIX Shape {
-              appearance PBRAppearance {
-                baseColor 0.1 0.1 0.1
-                baseColorMap ImageTexture {
+      shaftAxis 0 0 1
+      centerOfThrust -0.171 -0.171 0.061
+      thrustConstants -0.0009544 0
+      torqueConstants 0.000909 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "motor4"
+        maxVelocity 600
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation -0.171 -0.171 0.061
+        children [
+          DEF FASTHELIX Shape {
+            appearance PBRAppearance {
+              baseColor 0.1 0.1 0.1
+              baseColorMap ImageTexture {
+                url [
+                  "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/protos/textures/fast_helix.png"
+                ]
+              }
+              metalness 0
+            }
+            geometry DEF HELIX_CYLINDER Cylinder {
+              height 0.01
+              radius 0.1275
+            }
+          }
+        ]
+        boundingObject USE HELIX_CYLINDER
+      }
+      slowHelix Solid {
+        translation -0.1714 -0.171 0.061
+        children [
+          DEF PROPELLER Transform {
+            translation 0.026 -0.042 0.134
+            scale 0.001 0.001 0.001
+            children [
+              Shape {
+                appearance DEF PLASTIC PBRAppearance {
+                  baseColor 0 0 0
+                  metalness 0.3
+                }
+                geometry Mesh {
                   url [
-                    "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/protos/textures/fast_helix.png"
+                    "/home/angel/desarrollo/DeltaV/logan-webots/protos/logan/propeller.stl"
                   ]
                 }
-                metalness 0
-              }
-              geometry DEF HELIX_CYLINDER Cylinder {
-                height 0.01
-                radius 0.1275
-              }
-            }
-          ]
-          boundingObject USE HELIX_CYLINDER
-        }
-        slowHelix Solid {
-          translation -0.171 -0.171 0.061
-          children [
-            DEF PROPELLER Transform {
-              translation 0.026 -0.042 0.134
-              scale 0.001 0.001 0.001
-              children [
-                Shape {
-                  appearance DEF PLASTIC PBRAppearance {
-                    baseColor 0 0 0
-                    metalness 0.3
-                  }
-                  geometry Mesh {
-                    url [
-                      "logan/propeller.stl"
-                    ]
-                  }
-                }
-              ]
-            }
-          ]
-          boundingObject DEF HELIX_BOUNDING Group {
-            children [
-              Cylinder {
-                height 0.02
-                radius 0.01
-              }
-              Box {
-                size 0.25 0.03 0.01
               }
             ]
           }
+        ]
+        boundingObject DEF HELIX_BOUNDING Group {
+          children [
+            Cylinder {
+              height 0.02
+              radius 0.01
+            }
+            Box {
+              size 0.25 0.03 0.01
+            }
+          ]
         }
+        translationStep 0.0001
       }
-      DEF M2 Propeller {
-        shaftAxis 0 0 1
-        centerOfThrust 0.171 -0.171 0.061
-        thrustConstants 0.0009544 0
-        torqueConstants 0.000909 0
-        fastHelixThreshold 50
-        device RotationalMotor {
-          name "motor2"
-          maxVelocity 600
-          maxTorque 30
-        }
-        fastHelix Solid {
-          translation 0.171 -0.171 0.061
-          children [
-            USE FASTHELIX
-          ]
-          boundingObject USE HELIX_CYLINDER
-        }
-        slowHelix Solid {
-          translation 0.171 -0.171 0.061
-          children [
-            USE PROPELLER
-          ]
-          boundingObject USE HELIX_BOUNDING
-        }
+    }
+    DEF M1 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.171 -0.171 0.061
+      thrustConstants 0.0009544 0
+      torqueConstants 0.000909 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "motor1"
+        maxVelocity 600
+        maxTorque 30
       }
-      DEF M1 Propeller {
-        shaftAxis 0 0 1
-        centerOfThrust 0.171 0.171 0.061
-        thrustConstants -0.0009544 0
-        torqueConstants 0.000909 0
-        fastHelixThreshold 50
-        device RotationalMotor {
-          name "motor1"
-          maxVelocity 600
-          maxTorque 30
-        }
-        fastHelix Solid {
-          translation 0.171 0.171 0.061
-          children [
-            USE FASTHELIX
-          ]
-          boundingObject USE HELIX_CYLINDER
-        }
-        slowHelix Solid {
-          translation 0.171 0.171 0.061
-          children [
-            USE PROPELLER
-          ]
-          boundingObject USE HELIX_BOUNDING
-        }
+      fastHelix Solid {
+        translation 0.171 -0.171 0.061
+        children [
+          USE FASTHELIX
+        ]
+        boundingObject USE HELIX_CYLINDER
       }
-      DEF M3 Propeller {
-        shaftAxis 0 0 1
-        centerOfThrust -0.171 0.171 0.061
-        thrustConstants 0.0009544 0
-        torqueConstants 0.000909 0
-        fastHelixThreshold 50
-        device RotationalMotor {
-          name "motor3"
-          maxVelocity 600
-          maxTorque 30
-        }
-        fastHelix Solid {
-          translation -0.171 0.171 0.061
-          children [
-            USE FASTHELIX
-          ]
-          boundingObject USE HELIX_CYLINDER
-        }
-        slowHelix Solid {
-          translation -0.171 0.171 0.061
-          children [
-            USE PROPELLER
-          ]
-          boundingObject USE HELIX_BOUNDING
-        }
+      slowHelix Solid {
+        translation 0.171 -0.171 0.061
+        children [
+          USE PROPELLER
+        ]
+        boundingObject USE HELIX_BOUNDING
+      }
+    }
+    DEF M3 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.171 0.171 0.061
+      thrustConstants -0.0009544 0
+      torqueConstants 0.000909 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "motor3"
+        maxVelocity 600
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation 0.171 0.171 0.061
+        children [
+          USE FASTHELIX
+        ]
+        boundingObject USE HELIX_CYLINDER
+      }
+      slowHelix Solid {
+        translation 0.171 0.171 0.061
+        children [
+          USE PROPELLER
+        ]
+        boundingObject USE HELIX_BOUNDING
+      }
+    }
+    DEF M2 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.171 0.171 0.061
+      thrustConstants 0.0009544 0
+      torqueConstants 0.000909 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "motor2"
+        maxVelocity 600
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation -0.171 0.171 0.061
+        children [
+          USE FASTHELIX
+        ]
+        boundingObject USE HELIX_CYLINDER
+      }
+      slowHelix Solid {
+        translation -0.171 0.171 0.061
+        children [
+          USE PROPELLER
+        ]
+        boundingObject USE HELIX_BOUNDING
+      }
+    }
+      Accelerometer {
+      }
+      InertialUnit {
+      }
+      GPS {
+      }
+      Gyro {
       }
     ]
     name IS name
