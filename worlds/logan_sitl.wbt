@@ -49,5 +49,11 @@ Logan {
     "3,4"
     "--motor-cap"
     "100"
+    "--camera"
+    "camera"
+    "--camera-fps"
+    "10"
+    "--camera-port"
+    "5600"
   ]
 }

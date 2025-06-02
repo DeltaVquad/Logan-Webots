@@ -156,7 +156,7 @@ PROTO Logan [
                 }
                 geometry Mesh {
                   url [
-                    "/home/angel/desarrollo/DeltaV/logan-webots/protos/logan/propeller.stl"
+                    "logan/propeller.stl"
                   ]
                 }
               }
@@ -262,6 +262,10 @@ PROTO Logan [
       GPS {
       }
       Gyro {
+      }
+      Camera {
+        translation 0.06 0 0
+        rotation 0 1 0 0.523599
       }
     ]
     name IS name

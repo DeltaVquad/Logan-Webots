@@ -21,6 +21,9 @@ def init_motor(motor_name):
     motor.setVelocity(1.)
     return motor
 
+camera = robot.getDevice('camera')
+camera.enable(timestep)
+
 motors = [init_motor(m)
           for m in ['motor1', 'motor2', 'motor3', 'motor4']]
 fix_vel = 100

@@ -55,7 +55,7 @@ Robot {
               }
               geometry Mesh {
                 url [
-                  "/home/angel/desarrollo/DeltaV/logan-webots/protos/logan/center.stl"
+                  "../protos/logan/center.stl"
                 ]
               }
             }
@@ -80,7 +80,7 @@ Robot {
               }
               geometry Mesh {
                 url [
-                  "/home/angel/desarrollo/DeltaV/logan-webots/protos/logan/arm.stl"
+                  "../protos/logan/arm.stl"
                 ]
               }
             }
@@ -99,7 +99,7 @@ Robot {
               }
               geometry Mesh {
                 url [
-                  "/home/angel/desarrollo/DeltaV/logan-webots/protos/logan/motor_base.stl"
+                  "../protos/logan/motor_base.stl"
                 ]
               }
             }
@@ -182,7 +182,7 @@ Robot {
                 }
                 geometry Mesh {
                   url [
-                    "/home/angel/desarrollo/DeltaV/logan-webots/protos/logan/propeller.stl"
+                    "../protos/logan/propeller.stl"
                   ]
                 }
               }
@@ -288,6 +288,10 @@ Robot {
     Gyro {
     }
     InertialUnit {
+    }
+    Camera {
+      translation 0.06 0 0
+      rotation 0 1 0 0.523599
     }
   ]
   name "Logan"
