@@ -265,7 +265,10 @@ PROTO Logan [
       }
       Camera {
         translation 0.06 0 0
-        rotation 0 1 0 0.523599
+        rotation 0 1 0 1.309
+        fieldOfView 1.085595
+        width 640
+        height 480
       }
     ]
     name IS name

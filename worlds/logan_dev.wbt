@@ -16,8 +16,8 @@ WorldInfo {
   FPS 20
 }
 Viewpoint {
-  orientation -0.06134741610601014 0.9838992091466812 0.16786554374752252 0.711331077095328
-  position -1.2149294899037233 -0.25616243667680144 1.3434071626937416
+  orientation -0.2320719953593096 -0.22344990404138498 0.9466851268261504 4.6198842900226476
+  position 0.14586009548365103 0.8452903215984553 0.5419521691126644
   followType "Mounted Shot"
 }
 TexturedBackground {
@@ -291,7 +291,10 @@ Robot {
     }
     Camera {
       translation 0.06 0 0
-      rotation 0 1 0 0.523599
+      rotation 0 -1 0 -5.307179586466759e-06
+      fieldOfView 0.8
+      width 640
+      height 480
     }
   ]
   name "Logan"

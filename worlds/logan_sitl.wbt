@@ -54,6 +54,6 @@ Logan {
     "--camera-fps"
     "10"
     "--camera-port"
-    "5600"
+    "8554"
   ]
 }
