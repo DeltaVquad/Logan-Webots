@@ -11,6 +11,7 @@ import time
 import socket
 import select
 import struct
+import subprocess
 import numpy as np
 from threading import Thread
 from typing import List, Union
@@ -279,6 +280,7 @@ class WebotsArduVehicle():
         # https://cyberbotics.com/doc/reference/camera
         if isinstance(camera, Camera):
             cam_sample_period = self.camera.getSamplingPeriod()
+            fps = 25
             cam_width = self.camera.getWidth()
             cam_height = self.camera.getHeight()
             print(f"Camera stream started at 127.0.0.1:{port} (I{self._instance}) "
@@ -295,15 +297,35 @@ class WebotsArduVehicle():
             return
 
         # create a local TCP socket server
-        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        server.bind(('127.0.0.1', port))
-        server.listen(1)
+        rtsp_url = f'rtsp://localhost:{port}/mystream'
+
+        ffmpeg_cmd = [
+            'ffmpeg',
+            '-f', 'rawvideo',
+            # '-pix_fmt', 'bgr24', # BGR
+            '-pix_fmt', 'rgb24', # BGR
+            '-s', f'{cam_width}x{cam_height}',
+            '-r', str(fps),
+            '-i', '-',  # read from stdin
+            '-an',  # no audio
+            '-c:v', 'libx264',
+            '-preset', 'ultrafast',
+            '-tune', 'zerolatency',
+            '-g', '10',  # othe GOP values
+            '-keyint_min', '1',   # minimum keyframes
+            '-sc_threshold', '0',  # scene changes
+            '-f', 'rtsp',
+            rtsp_url,
+            '-rtsp_transport', 'udp'
+        ]
+        
+        # Open subprocess
+        proc = subprocess.Popen(ffmpeg_cmd, stdin=subprocess.PIPE)
+
 
         # continuously send images
         while self._webots_connected:
             # wait for incoming connection
-            conn, _ = server.accept()
             print(f"Connected to camera client (I{self._instance})")
 
             # send images to client
@@ -314,7 +336,7 @@ class WebotsArduVehicle():
 
                     # get image
                     if isinstance(camera, Camera):
-                        img = self.get_camera_gray_image()
+                        img = self.get_camera_image()
                     elif isinstance(camera, RangeFinder):
                         img = self.get_rangefinder_image()
 
@@ -324,11 +346,10 @@ class WebotsArduVehicle():
                         continue
 
                     # create a header struct with image size
-                    header = struct.pack("=HH", cam_width, cam_height)
+                    # header = struct.pack("=HH", cam_width, cam_height)
 
                     # pack header and image and send
-                    data = header + img.tobytes()
-                    conn.sendall(data)
+                    proc.stdin.write(img.tobytes())
 
                     # delay at sample rate
                     while self.robot.getTime() - start_time < cam_sample_period/1000:
@@ -339,7 +360,8 @@ class WebotsArduVehicle():
             except BrokenPipeError:
                 pass
             finally:
-                conn.close()
+                proc.stdin.close()
+                proc.wait()
                 print(f"Camera client disconnected (I{self._instance})")
 
     def get_camera_gray_image(self) -> np.ndarray:
