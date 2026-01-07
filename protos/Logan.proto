@@ -7,7 +7,7 @@ PROTO Logan [
   field SFVec3f translation 0 0 0.166
   field SFRotation rotation 0 0 1 0
   field SFString name "Logan"
-  field SFString controller "motor_test"
+  field SFString controller "ardupilot_vehicle_controller"
   field MFString controllerArgs  []
 ]
 {
