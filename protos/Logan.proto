@@ -117,7 +117,7 @@ PROTO Logan [
       torqueConstants 0.000909 0
       fastHelixThreshold 50
       device RotationalMotor {
-        name "m4_motor"
+        name "motor4"
         maxVelocity 600
         maxTorque 30
       }
@@ -184,7 +184,7 @@ PROTO Logan [
       torqueConstants 0.000909 0
       fastHelixThreshold 50
       device RotationalMotor {
-        name "m1_motor"
+        name "motor1"
         maxVelocity 600
         maxTorque 30
       }
@@ -210,7 +210,7 @@ PROTO Logan [
       torqueConstants 0.000909 0
       fastHelixThreshold 50
       device RotationalMotor {
-        name "m3_motor"
+        name "motor3"
         maxVelocity 600
         maxTorque 30
       }
@@ -236,7 +236,7 @@ PROTO Logan [
       torqueConstants 0.000909 0
       fastHelixThreshold 50
       device RotationalMotor {
-        name "m2_motor"
+        name "motor2"
         maxVelocity 600
         maxTorque 30
       }
