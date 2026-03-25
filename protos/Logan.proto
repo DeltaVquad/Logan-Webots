@@ -269,6 +269,7 @@ PROTO Logan [
         fieldOfView 1.085595
         width 640
         height 480
+        near 0.3
       }
     ]
     name IS name
