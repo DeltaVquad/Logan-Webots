@@ -5,7 +5,7 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/Floor.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Pavement.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Grass.proto"
-EXTERNPROTO "../protos/Logan.proto"
+EXTERNPROTO "../protos/Logan2026.proto"
 
 WorldInfo {
   info [
@@ -17,8 +17,8 @@ WorldInfo {
   FPS 20
 }
 Viewpoint {
-  orientation 1.6894965561981043e-16 0.9999999999999999 -7.506275356949363e-16 0.7600000000000037
-  position -2.752422105124814 -0.005417256215790069 2.883179555052895
+  orientation 0.22093058433558904 0.13931724224221503 -0.9652877202778243 2.0480034981866226
+  position 0.5913042566841488 1.5274602985681434 0.884659573624852
   follow "Logan"
   followType "Mounted Shot"
 }
@@ -40,7 +40,7 @@ Floor {
   appearance Grass {
   }
 }
-Logan {
+Logan2026 {
   controller "ardupilot_vehicle_controller"
   controllerArgs [
     "--motors"

@@ -16,8 +16,8 @@ WorldInfo {
   FPS 20
 }
 Viewpoint {
-  orientation -0.2320719953593096 -0.22344990404138498 0.9466851268261504 4.6198842900226476
-  position 0.14586009548365103 0.8452903215984553 0.5419521691126644
+  orientation 0.15901930758689828 -0.03092214823029021 -0.9867911027990712 3.5207395561287878
+  position 0.26007587441677255 -0.02435726584672147 0.23629506953018614
   followType "Mounted Shot"
 }
 TexturedBackground {
@@ -39,7 +39,7 @@ Floor {
   }
 }
 Robot {
-  translation 0 0 0.166
+  translation 0 -1.5 0.166
   children [
     Solid {
       children [
@@ -365,4 +365,341 @@ Robot {
     ]
   }
   controller "motor_test"
+}
+Robot {
+  translation 0 0 0.204
+  children [
+    Solid {
+      children [
+        Transform {
+          scale 0.001 0.001 0.001
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0 0 0.4
+                roughness 0.1
+                metalness 0.01
+              }
+              geometry Mesh {
+                url [
+                  "../protos/logan2026/center.stl"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+      name "center"
+    }
+    Solid {
+      children [
+        DEF ARM_SHAPE Transform {
+          scale 0.001 0.001 0.001
+          children [
+            Shape {
+              appearance DEF CARBON_FIBER PBRAppearance {
+                baseColor 0.1 0.1 0.1
+                roughness 0.1
+                metalness 0.01
+              }
+              geometry Mesh {
+                url [
+                  "../protos/logan2026/arm.stl"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+      name "arm1"
+    }
+    Solid {
+      rotation 0 0 1 -1.5707953071795862
+      children [
+        USE ARM_SHAPE
+      ]
+      name "arm2"
+    }
+    Solid {
+      rotation 0 0 1 3.14159
+      children [
+        USE ARM_SHAPE
+      ]
+      name "arm3"
+    }
+    Solid {
+      rotation 0 0 -1 -1.5707953071795862
+      children [
+        USE ARM_SHAPE
+      ]
+      name "arm4"
+    }
+    DEF M4 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.173 -0.173 0.0325
+      thrustConstants -0.0009544 0
+      torqueConstants 0.000909 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "motor4"
+        maxVelocity 600
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation -0.173 -0.173 0.0325
+        children [
+          DEF FASTHELIX Shape {
+            appearance PBRAppearance {
+              baseColor 0.1 0.1 0.1
+              baseColorMap ImageTexture {
+                url [
+                  "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/protos/textures/fast_helix.png"
+                ]
+              }
+              metalness 0
+            }
+            geometry DEF HELIX_CYLINDER Cylinder {
+              height 0.01
+              radius 0.1275
+            }
+          }
+        ]
+        boundingObject USE HELIX_CYLINDER
+      }
+      slowHelix Solid {
+        translation -0.173 -0.173 0.0325
+        children [
+          DEF PROPELLER Transform {
+            translation -0.173 -0.173 -0.0325
+            scale 0.001 0.001 0.001
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0 0.1 0
+                  metalness 0.3
+                }
+                geometry Mesh {
+                  url [
+                    "../protos/logan2026/propeller.stl"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+        boundingObject DEF HELIX_BOUNDING Group {
+          children [
+            Cylinder {
+              height 0.02
+              radius 0.01
+            }
+            Box {
+              size 0.25 0.03 0.01
+            }
+          ]
+        }
+        translationStep 0.0001
+      }
+    }
+    DEF M1 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.173 -0.173 0.0325
+      thrustConstants 0.0009544 0
+      torqueConstants 0.000909 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "motor1"
+        maxVelocity 600
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation 0.173 -0.173 0.0325
+        children [
+          USE FASTHELIX
+        ]
+        boundingObject USE HELIX_CYLINDER
+      }
+      slowHelix Solid {
+        translation 0.173 -0.173 0.0325
+        children [
+          USE PROPELLER
+        ]
+        boundingObject USE HELIX_BOUNDING
+      }
+    }
+    DEF M3 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.173 0.173 0.0325
+      thrustConstants -0.0009544 0
+      torqueConstants 0.000909 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "motor3"
+        maxVelocity 600
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation 0.173 0.173 0.0325
+        children [
+          USE FASTHELIX
+        ]
+        boundingObject USE HELIX_CYLINDER
+      }
+      slowHelix Solid {
+        translation 0.173 0.173 0.0325
+        children [
+          USE PROPELLER
+        ]
+        boundingObject USE HELIX_BOUNDING
+      }
+    }
+    DEF M2 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.173 0.173 0.0325
+      thrustConstants 0.0009544 0
+      torqueConstants 0.000909 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "motor2"
+        maxVelocity 600
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation -0.173 0.173 0.0325
+        children [
+          USE FASTHELIX
+        ]
+        boundingObject USE HELIX_CYLINDER
+      }
+      slowHelix Solid {
+        translation -0.173 0.173 0.0325
+        children [
+          USE PROPELLER
+        ]
+        boundingObject USE HELIX_BOUNDING
+      }
+    }
+    Solid {
+      translation 0.13 0.003 0
+      children [
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            position 1.57
+            axis 0 1 0
+          }
+          device [
+            RotationalMotor {
+              name "camera_tilt"
+              maxPosition 1.57
+            }
+          ]
+          endPoint Solid {
+            rotation 0 1 0 1.57
+            children [
+              Pose {
+                children [
+                  Transform {
+                    translation -0.13 0 -0.002
+                    scale 0.001 0.001 0.001
+                    children [
+                      Shape {
+                        appearance PBRAppearance {
+                          baseColor 0.3 0 0
+                          roughness 0.1
+                          metalness 0.01
+                        }
+                        geometry Mesh {
+                          url [
+                            "../protos/logan2026/gimbal.stl"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.031 0.0005 -0.002
+                    children [
+                      Camera {
+                        fieldOfView 0.8
+                        width 640
+                        height 480
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+            name "camera_case"
+          }
+        }
+      ]
+      name "gimbal"
+    }
+    Accelerometer {
+    }
+    Gyro {
+    }
+    InertialUnit {
+    }
+    GPS {
+    }
+  ]
+  name "logan2026"
+  boundingObject Group {
+    children [
+      Pose {
+        translation 0 0 -0.04
+        children [
+          Box {
+            size 0.2 0.2 0.12
+          }
+        ]
+      }
+      Pose {
+        translation -0.06 0 0.09
+        children [
+          Box {
+            size 0.05 0.05 0.18
+          }
+        ]
+      }
+      Pose {
+        translation -0.11 0.11 -0.098
+        rotation 0 0 1 2.35619
+        children [
+          DEF ARM_BOX Box {
+            size 0.2 0.025 0.21
+          }
+        ]
+      }
+      Pose {
+        translation 0.11 0.11 -0.098
+        rotation 0 0 1 -2.35619
+        children [
+          USE ARM_BOX
+        ]
+      }
+      Pose {
+        translation 0.11 -0.11 -0.098
+        rotation 0 0 1 2.35619
+        children [
+          USE ARM_BOX
+        ]
+      }
+      Pose {
+        translation -0.11 -0.11 -0.098
+        rotation 0 0 1 -2.35619
+        children [
+          USE ARM_BOX
+        ]
+      }
+    ]
+  }
+  physics Physics {
+    density -1
+    mass 2.392
+    centerOfMass [
+      0 0 0
+    ]
+  }
 }
