@@ -7,7 +7,7 @@ PROTO Logan2026 [
   field SFVec3f translation 0 0 0.204
   field SFRotation rotation 0 0 1 0
   field SFString name "Logan2026"
-  field SFFloat{0, 0.39, 0.79, 1.18, 1.57}  cameraPosition 1.57
+  field SFFloat  cameraPosition 1.57
   field MFNode   camera [Camera {
                          fieldOfView 0.8
                          width 640

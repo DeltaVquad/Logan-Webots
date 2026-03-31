@@ -16,11 +16,15 @@ def get_args():
 
     parser.add_argument("--motors", "-m",
                         type=str,
-                        default="m1_motor, m2_motor, m3_motor, m4_motor",
+                        default="motor1, motor2, motor3, motor4",
                         help="Comma spaced list of motor names in ardupilot numerical order (ex --motors \"m1,m2,m3, m4\")")
+    parser.add_argument("--servos", "-s",
+                        type=str,
+                        default="camera_tilt",
+                        help="Comma spaced list of servo names, starting for SERVO7")
     parser.add_argument("--reversed-motors", "-r",
                         type=str,
-                        default=None,
+                        default="3,4",
                         help="Comma spaced list of motors to reverse (starting from 1, in ardupilot order)")
     parser.add_argument("--bidirectional-motors",
                         type=bool,
@@ -97,12 +101,14 @@ if __name__ == "__main__":
 
     # parse string arguments into lists
     motors = [x.strip() for x in args.motors.split(',')]
+    servos = [x.strip() for x in args.servos.split(',')]
     if args.reversed_motors:
         reversed_motors = [int(x) for x in args.reversed_motors.split(",")]
     else:
         reversed_motors = []
 
     vehicle = WebotsArduVehicle(motor_names=motors,
+                                servo_names=servos,
                                 reversed_motors=reversed_motors,
                                 accel_name=args.accel,
                                 imu_name=args.imu,
