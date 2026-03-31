@@ -150,7 +150,7 @@ class WebotsArduVehicle():
         
         self._servos = [self.robot.getDevice(n) for n in servo_names]
         for m in self._servos:
-            m.setPosition(0)
+            m.setPosition(m.getMaxPosition())
 
         # start ArduPilot SITL communication thread
         self._sitl_thread = Thread(daemon=True, target=self._handle_sitl, args=[sitl_address, 9002+10*instance])
