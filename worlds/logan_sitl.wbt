@@ -49,6 +49,8 @@ Logan2026 {
     "3,4"
     "--motor-cap"
     "100"
+    "--servos"
+    "camera_tilt"
     "--camera"
     "camera"
     "--camera-fps"

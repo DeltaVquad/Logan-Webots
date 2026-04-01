@@ -49,6 +49,7 @@ class WebotsArduVehicle():
 
     def __init__(self,
                  motor_names: List[str],
+                 servo_names: List[str] = [],
                  accel_name: str = "accelerometer",
                  imu_name: str = "inertial unit",
                  gyro_name: str = "gyro",
@@ -68,6 +69,7 @@ class WebotsArduVehicle():
         """WebotsArduVehicle constructor
 
         Args:
+            servo_names (List[str]): Auxiliary motors anem in ArduPilot numerical order (first motor is SERVO1 etc).
             motor_names (List[str]): Motor names in ArduPilot numerical order (first motor is SERVO1 etc).
             accel_name (str, optional): Webots accelerometer name. Defaults to "accelerometer".
             imu_name (str, optional): Webots imu name. Defaults to "inertial unit".
@@ -145,6 +147,10 @@ class WebotsArduVehicle():
         for m in self._motors:
             m.setPosition(float('inf'))
             m.setVelocity(0)
+        
+        self._servos = [self.robot.getDevice(n) for n in servo_names]
+        for m in self._servos:
+            m.setPosition(m.getMaxPosition())
 
         # start ArduPilot SITL communication thread
         self._sitl_thread = Thread(daemon=True, target=self._handle_sitl, args=[sitl_address, 9002+10*instance])
@@ -267,6 +273,14 @@ class WebotsArduVehicle():
         # set velocities of the motors in Webots
         for i, m in enumerate(self._motors):
             m.setVelocity(linearized_motor_commands[i] * min(m.getMaxVelocity(), self.motor_velocity_cap))
+        
+        # set PWM
+        for i, m in enumerate(self._servos):
+            servo_idx = 6 + i  # starts from SERVO7
+            pwm_command = command[servo_idx]
+            if pwm_command != -1:
+                m.setPosition(pwm_command * m.getMaxPosition())  # now is [0, pi/2] only
+            
 
     def _handle_image_stream(self, camera: Union[Camera, RangeFinder], port: int):
         """Stream grayscale images over TCP
