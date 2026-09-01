@@ -249,7 +249,7 @@ PROTO Logan2026 [
               }
             ]
             endPoint Solid {
-              rotation 0 1 0 1.57
+              rotation 1 0 0 0
               children [
                 Pose {
                   children [
