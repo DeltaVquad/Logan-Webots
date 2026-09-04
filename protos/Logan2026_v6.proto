@@ -408,9 +408,9 @@ PROTO Logan2026_v6 [
     # -----------------------------------------------------------------
     physics Physics {
       density -1
-      mass 2.392
+      mass 2.810
       centerOfMass [
-        0 0 0
+        -0.0000422 -0.0002957 -0.0292075
       ]
       # Matriz de Inércia de alta fidelidade estimada com base na distribuição de massa real do Logan (2.392 kg)
       # Central Body (1.392 kg) + 4 Motors (0.25 kg cada nas pontas dos braços x=173mm, y=173mm, z=32.5mm)

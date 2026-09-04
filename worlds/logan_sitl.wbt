@@ -18,7 +18,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation -0.0018143250387837164 0.9997962337114694 0.020104707931575472 0.18003648756658658
-  position -13.470090774042312 0.1787954632969857 2.7228897476652767
+  position -3.2924326912482087 0.4785339758057584 0.9942931092392006
   follow "Logan"
   followType "Mounted Shot"
 }
@@ -41,8 +41,9 @@ Floor {
   }
 }
 Logan2026_v6 {
-  controller "ardupilot_vehicle_controller"
-  cameraPosition 0.0
+  hidden rotation_7 0 1 0 1.57
+  translation 2.7772504649341004e-20 9.595757211057905e-19 0.2039827711875
+  rotation 0.3359317170235221 0.3338695210933656 0.8807275540043668 3.60879433618968e-18
   controllerArgs [
     "--motors"
     "motor1, motor2, motor3, motor4"
